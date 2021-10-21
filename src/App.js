@@ -28,7 +28,7 @@ const shuffleArray=(array)=> {
 const THRESHOLDTOPASS=0.7;  
 
 const App=()=>{
-    const [questions, setQuestions]=useState([]);
+    const [questions, setQuestions]=useState(quizQuestions);
     const [answers, setAnswers]=useState({});
     const [showresult, setShowresult]=useState(false);    
     const [results, setResults]=useState({pass:false,errors:0,valid:0});  
@@ -36,12 +36,12 @@ const App=()=>{
 
 
     useEffect(() => {
-      const questions=quizQuestions.map(aQ =>{
+      /*const questions=quizQuestions.map(aQ =>{
           aQ.answers=shuffleArray(aQ.answers);
           return aQ;
         });
 
-      setQuestions(questions);
+      setQuestions(questions);*/
     },[]);
 
 
@@ -70,7 +70,17 @@ const App=()=>{
 
     const renderResult=()=> {
       const quizNumbers=`Has tenido ${results.valid} respuestas correctas y ${results.errors} errores.`;
-      const quizResult=setResults.pass?`Estas preparado para realizar este curso. Adelante!`:`No estás preparado para realizar este curso. te recomendamos hacer el curso de planificación.`;
+      const valids=results.valid;
+
+      let quizResult="";
+      if(valids>=8){
+        quizResult="¡Enhorabuena! Por tus resultados en el test, eres un experto en Planificación de Producto. Estás en disposición de comenzar tu aprendizaje sobre Gestión de la Release de Producto. ¡A por ello!";
+      }else if(valids>=6){
+        quizResult="¡Muy bien! Parece que tienes claros la mayoría de los conceptos de Planificación de Producto. Sin embargo, se ve que tienes algunas dudas con otros. Te recomendamos echar un vistazo a los contenidos del curso de Planificación de Producto, si es que lo has cursado con anterioridad, para comenzar esta nueva experiencia con una base más sólida. ¡A por ello!";
+      }else{
+        quizResult="Vaya, parece que tienes algunas dudas sobre conceptos básicos de Planificación de Producto. Te recomendemos que revises los contenidos de dicho curso, si es que lo has cursado con anterioridad, y que vuelvas a revisar el test después para comprobar que empiezas esta nueva aventura de aprendizaje con una base sólida. ¡A por ello! ";
+      }
+
       return <Result quizResult={quizResult} quizNumbers={quizNumbers}/>;
     }
 
@@ -95,7 +105,7 @@ const App=()=>{
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Multichoice Quiz</h2>
+          <h2>Product Release Management Readiness Test</h2>
         </header>
         <section className="questionsbody">
           {showresult ? renderResult() : renderQuiz()}

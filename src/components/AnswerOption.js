@@ -13,9 +13,9 @@ const AnswerOption=(props)=> {
         id={`radioGroup${props.questionId}-${props.answerType}`}
         value={props.answerType}
         disabled={props.answer}
-        onChange={(e)=>{console.log('changed!'); props.onAnswerSelected(e);}}        
+        onChange={(e)=>{props.onAnswerSelected(e);}}        
       />
-      <label className="radioCustomLabel" htmlFor={`radioGroup${props.questionId}-${props.answerType}`} onClick={(e)=>{console.log('changed click!'); props.onAnswerSelected(e);}}>
+      <label className="radioCustomLabel" htmlFor={`radioGroup${props.questionId}-${props.answerType}`} onClick={(e)=>{props.onAnswerSelected(e);}}>
         {props.answerContent}
       </label>
     </li>
